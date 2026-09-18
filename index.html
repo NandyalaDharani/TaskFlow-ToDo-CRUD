@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TaskFlow - a JavaScript CRUD To-Do List with localStorage persistence">
+  <title>TaskFlow | To-Do List</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <main class="container">
+
+    <section class="app-card" aria-label="TaskFlow To-Do application">
+
+      <!-- Header -->
+      <header class="header">
+
+        <div>
+          <span class="badge">
+            JavaScript • DOM • State • localStorage
+          </span>
+
+          <h1>TaskFlow</h1>
+
+          <p>
+            Plan your work, track your progress, and keep everything saved.
+          </p>
+        </div>
+
+        <button
+          id="themeBtn"
+          class="icon-btn"
+          type="button"
+          aria-label="Toggle theme"
+          title="Toggle theme"
+        >
+          🌙
+        </button>
+
+      </header>
+
+
+      <!-- Statistics -->
+      <section class="stats" aria-label="Task statistics">
+
+        <div class="stat">
+          <strong id="totalCount">0</strong>
+          <span>Total</span>
+        </div>
+
+        <div class="stat">
+          <strong id="activeCount">0</strong>
+          <span>Active</span>
+        </div>
+
+        <div class="stat">
+          <strong id="completedCount">0</strong>
+          <span>Completed</span>
+        </div>
+
+        <div class="progress-box">
+
+          <div class="progress-label">
+            <span>Progress</span>
+            <strong id="progressText">0%</strong>
+          </div>
+
+          <div class="progress-track">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- Add Task Form -->
+      <form id="taskForm" class="task-form">
+
+        <div class="input-row">
+
+          <label class="sr-only" for="taskInput">
+            Task title
+          </label>
+
+          <input
+            id="taskInput"
+            type="text"
+            maxlength="120"
+            placeholder="What needs to be done?"
+            autocomplete="off"
+            required
+          >
+
+          <button
+            id="submitBtn"
+            class="primary-btn"
+            type="submit"
+          >
+            Add Task
+          </button>
+
+        </div>
+
+
+        <div class="options-row">
+
+          <label>
+            Priority
+
+            <select id="priorityInput">
+
+              <option value="low">
+                Low
+              </option>
+
+              <option value="medium" selected>
+                Medium
+              </option>
+
+              <option value="high">
+                High
+              </option>
+
+            </select>
+
+          </label>
+
+
+          <label>
+            Due date
+
+            <input
+              id="dueDateInput"
+              type="date"
+            >
+
+          </label>
+
+        </div>
+
+      </form>
+
+
+      <!-- Controls -->
+      <section class="controls" aria-label="Task controls">
+
+        <div
+          id="filterButtons"
+          class="filters"
+          role="group"
+          aria-label="Filter tasks"
+        >
+
+          <button
+            class="filter-btn active"
+            type="button"
+            data-filter="all"
+          >
+            All
+          </button>
+
+          <button
+            class="filter-btn"
+            type="button"
+            data-filter="active"
+          >
+            Active
+          </button>
+
+          <button
+            class="filter-btn"
+            type="button"
+            data-filter="completed"
+          >
+            Completed
+          </button>
+
+        </div>
+
+
+        <label class="search">
+
+          <span class="sr-only">
+            Search tasks
+          </span>
+
+          🔎
+
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Search tasks..."
+            autocomplete="off"
+          >
+
+        </label>
+
+
+        <select
+          id="sortSelect"
+          class="sort-select"
+          aria-label="Sort tasks"
+        >
+
+          <option value="newest">
+            Newest first
+          </option>
+
+          <option value="oldest">
+            Oldest first
+          </option>
+
+          <option value="priority">
+            Priority
+          </option>
+
+          <option value="dueDate">
+            Due date
+          </option>
+
+        </select>
+
+      </section>
+
+
+      <!-- List Header -->
+      <div class="list-header">
+
+        <span id="resultText">
+          0 tasks
+        </span>
+
+        <button
+          id="clearCompletedBtn"
+          class="text-btn"
+          type="button"
+        >
+          Clear completed
+        </button>
+
+      </div>
+
+
+      <!-- Empty State -->
+      <div id="emptyState" class="empty-state">
+
+        <div class="empty-icon">
+          ✓
+        </div>
+
+        <h2>
+          No tasks found
+        </h2>
+
+        <p>
+          Add a task or change your current filter/search.
+        </p>
+
+      </div>
+
+
+      <!-- Dynamic Task List -->
+      <ul
+        id="taskList"
+        class="task-list"
+        aria-live="polite"
+      ></ul>
+
+
+      <!-- Footer -->
+      <footer class="footer">
+
+        <span>
+          Data is saved automatically in your browser.
+        </span>
+
+        <button
+          id="clearAllBtn"
+          class="danger-text-btn"
+          type="button"
+        >
+          Delete all
+        </button>
+
+      </footer>
+
+    </section>
+
+  </main>
+
+
+  <!-- Toast notification -->
+  <div
+    id="toast"
+    class="toast"
+    role="status"
+    aria-live="polite"
+  ></div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
